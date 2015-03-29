@@ -1,7 +1,6 @@
 AccountsMerge = {};
 
 Meteor.methods({
-
   // The newAccount will be merged into the oldAccount and the newAccount will
   // be marked as merged.
   mergeAccounts: function (oldAccountId) {
@@ -19,7 +18,7 @@ Meteor.methods({
     var oldAccount = Meteor.users.findOne(oldAccountId);
     var newAccount = Meteor.users.findOne(this.userId);
 
-    _services = [ "facebook", "twitter", "google", "linkedin", "github" ];
+    _services = [ "facebook", "twitter", "google", "linkedin", "github", "soundcloud", "instagram" ];
 
     // Move login services from loosing to winning user
     for (i=0; i<_services.length; i++) {
