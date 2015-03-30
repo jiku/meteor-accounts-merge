@@ -8,7 +8,8 @@ Package.describe({
 
 Package.onUse(function (api) {
   api.versionsFrom('1.0.5');
-  api.use(['accounts-base']);
+  // Export Accounts (etc) to packages using this one.
+  api.use(['accounts-base', 'underscorestring:underscore.string']);
   api.addFiles('accounts-merge-server.js', 'server');
   api.addFiles('accounts-merge-client.js', 'client');
   api.export('AccountsMerge');

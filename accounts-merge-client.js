@@ -1,8 +1,16 @@
-Meteor.signInWithExternalService = function (service, options, callback) {
+Meteor.signInWithExternalService = function (serviceName, callback) {
   var oldUserId = Meteor.userId();
   var oldLoginToken = Accounts._storedLoginToken();
 
-  Meteor[service]( options, function (error) {
+  var options = {}; // use default scope unless specified
+  if (Accounts.ui._options.requestPermissions[serviceName])
+    options.requestPermissions = Accounts.ui._options.requestPermissions[serviceName];
+  if (Accounts.ui._options.requestOfflineToken[serviceName])
+    options.requestOfflineToken = Accounts.ui._options.requestOfflineToken[serviceName];
+  if (Accounts.ui._options.forceApprovalPrompt[serviceName])
+    options.forceApprovalPrompt = Accounts.ui._options.forceApprovalPrompt[serviceName];
+
+  Meteor["loginWith" + _.capitalize(serviceName)]( options, function (error) {
     if (error) {
       if (typeof callback === 'function') callback (error);
       return;
